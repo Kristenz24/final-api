@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/mingoy/api")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://final-ui-zww9.onrender.com")
 public class SocMedController {
 
     @Autowired

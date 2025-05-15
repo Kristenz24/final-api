@@ -12,7 +12,7 @@ public class WebConfig {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-            @Value("${ALLOWED_ORIGINS:http://localhost:5173}")
+            @Value("${ALLOWED_ORIGINS:https://final-ui-zww9.onrender.com")
             private String allowedOrigins;
             @Override
             public void addCorsMappings(CorsRegistry registry) {
@@ -20,7 +20,7 @@ public class WebConfig {
                         .allowedOrigins(allowedOrigins.split(",")) // Support multiple origins separated by commas
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true); // If using cookies or authentication headers
+                        .allowCredentials(false); //  bring back to true when stopped using postman
             }
         };
     }
