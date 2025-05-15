@@ -1,12 +1,15 @@
-# Build stage
-FROM maven:3.9.9-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+FROM eclipse-temurin:17-jdk-jammy
 
-# Package stage
-FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
-COPY --from=build /app/target/social_media_be-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+COPY src ./src
+
+# Add executable permissions to mvnw
+RUN chmod +x mvnw
+
+# Package the application
+RUN ./mvnw package -DskipTests
+
+CMD ["java", "-jar", "target/social_media_be-0.0.1-SNAPSHOT.jar"]
